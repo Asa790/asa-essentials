@@ -1,0 +1,23 @@
+{
+  "tasks": [],
+  "links": [
+    {
+      "id": "0119aa30-1b40-45b7-a60d-ccdce65b3143",
+      "title": "Certif",
+      "desc": "to do later",
+      "url": "https://www.coursera.org/professional-certificates/ibm-generative-ai-engineering",
+      "tag": "Saved",
+      "badge": "Active",
+      "icon": "link"
+    }
+  ],
+  "events": [
+    {
+      "id": "01928633-3fde-4055-a665-77273eb27462",
+      "title": "whyy",
+      "time": "15:00 - 16:00",
+      "tag": "Agenda",
+      "note": "ugh"
+    }
+  ]
+}
