@@ -902,18 +902,37 @@
     }
   }
 
-  // 2. REAL TASKS API CLIENT
+  // ================= 2. PRIVATE PER-DEVICE TASKS SYSTEM (LOCALSTORAGE) =================
+  const DEFAULT_INITIAL_TASKS = [
+    { id: 'task-1', title: 'Review Q4 design assets', priority: 'High', description: 'Prepare vector stickers & ribbons', completed: false },
+    { id: 'task-2', title: 'Export stationery print mockups', priority: 'Medium', description: 'Check CMYK 300dpi profiles', completed: false },
+    { id: 'task-3', title: 'Update Notion workspace theme', priority: 'Low', description: 'Botanical linen palette synchronization', completed: false },
+    { id: 'task-4', title: 'Send feedback to sashcreativehub', priority: 'Done', description: 'Reference slides appreciation', completed: true },
+    { id: 'task-5', title: 'Desktop inspiration moodboard', priority: 'Medium', description: 'Pressed petals & vintage stamps', completed: false }
+  ];
+
   let tasksData = [];
 
-  async function fetchTasks() {
+  function fetchTasks() {
     try {
-      const res = await fetch('/api/tasks');
-      if (res.ok) {
-        tasksData = await res.json();
-        renderTasks();
+      const saved = localStorage.getItem('asa_personal_tasks');
+      if (saved) {
+        tasksData = JSON.parse(saved);
+      } else {
+        tasksData = [...DEFAULT_INITIAL_TASKS];
+        saveTasksToLocal();
       }
-    } catch (err) {
-      console.warn('API error, using local fallback:', err);
+    } catch (e) {
+      tasksData = [...DEFAULT_INITIAL_TASKS];
+    }
+    renderTasks();
+  }
+
+  function saveTasksToLocal() {
+    try {
+      localStorage.setItem('asa_personal_tasks', JSON.stringify(tasksData));
+    } catch (e) {
+      console.warn('Could not save tasks locally', e);
     }
   }
 
@@ -977,58 +996,38 @@
     }
   }
 
-  async function addTask() {
+  function addTask() {
     const input = document.getElementById('new-task-input');
     if (!input || !input.value.trim()) return;
     const taskText = input.value.trim();
 
-    try {
-      const res = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: taskText, priority: 'High', description: 'Fresh studio priority' })
-      });
-      if (res.ok) {
-        const newTask = await res.json();
-        tasksData.unshift(newTask);
-        renderTasks();
-        input.value = '';
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    const newTask = {
+      id: 'task_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+      title: taskText,
+      priority: 'High',
+      description: 'Personal studio priority',
+      completed: false,
+      createdAt: new Date().toISOString()
+    };
+
+    tasksData.unshift(newTask);
+    saveTasksToLocal();
+    renderTasks();
+    input.value = '';
   }
 
-  async function toggleTaskApi(id) {
+  function toggleTaskApi(id) {
     const task = tasksData.find(t => t.id === id);
     if (!task) return;
-    const updatedCompleted = !task.completed;
-
-    try {
-      const res = await fetch(`/api/tasks/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: updatedCompleted })
-      });
-      if (res.ok) {
-        task.completed = updatedCompleted;
-        renderTasks();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    task.completed = !task.completed;
+    saveTasksToLocal();
+    renderTasks();
   }
 
-  async function deleteTaskApi(id) {
-    try {
-      const res = await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        tasksData = tasksData.filter(t => t.id !== id);
-        renderTasks();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  function deleteTaskApi(id) {
+    tasksData = tasksData.filter(t => t.id !== id);
+    saveTasksToLocal();
+    renderTasks();
   }
 
   function setFilter(type) {
@@ -1202,18 +1201,36 @@
     });
   }
 
-  // 4. REAL SCHEDULE & TIMELINE EVENTS API
+  // ================= 4. PRIVATE PER-DEVICE SCHEDULE EVENTS =================
+  const DEFAULT_INITIAL_EVENTS = [
+    { id: 'ev-1', title: 'Morning Botanical Sketching', time: '09:00 - 10:30', tag: 'Creative', color: 'primary', note: 'Pressed flora studies' },
+    { id: 'ev-2', title: 'Asset Conversion & Clean-up', time: '11:00 - 12:30', tag: 'Studio', color: 'secondary', note: 'Batch lossless format conversion' },
+    { id: 'ev-3', title: 'Sprint Review & Notion Sync', time: '14:00 - 15:30', tag: 'Review', color: 'tertiary', note: 'Sprint 42 deliverables' },
+    { id: 'ev-4', title: 'Evening Creative Journaling', time: '17:00 - 18:00', tag: 'Personal', color: 'amber', note: 'Wax seal and typography notes' }
+  ];
+
   let eventsData = [];
 
-  async function fetchEvents() {
+  function fetchEvents() {
     try {
-      const res = await fetch('/api/events');
-      if (res.ok) {
-        eventsData = await res.json();
-        renderEvents();
+      const saved = localStorage.getItem('asa_personal_events');
+      if (saved) {
+        eventsData = JSON.parse(saved);
+      } else {
+        eventsData = [...DEFAULT_INITIAL_EVENTS];
+        saveEventsToLocal();
       }
-    } catch (err) {
-      console.warn('Events fetch error:', err);
+    } catch (e) {
+      eventsData = [...DEFAULT_INITIAL_EVENTS];
+    }
+    renderEvents();
+  }
+
+  function saveEventsToLocal() {
+    try {
+      localStorage.setItem('asa_personal_events', JSON.stringify(eventsData));
+    } catch (e) {
+      console.warn('Could not save events locally', e);
     }
   }
 
@@ -1283,7 +1300,7 @@
     document.getElementById('add-event-form')?.reset();
   }
 
-  async function submitNewEvent() {
+  function submitNewEvent() {
     const titleInput = document.getElementById('event-title-input');
     const startInput = document.getElementById('event-start-time');
     const endInput = document.getElementById('event-end-time');
@@ -1301,47 +1318,57 @@
     const color = colorSelect?.value || 'primary';
     const note = noteInput?.value.trim() || '';
 
-    try {
-      const res = await fetch('/api/events', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, time: timeFormatted, tag, color, note })
-      });
-      if (res.ok) {
-        const newEvent = await res.json();
-        eventsData.push(newEvent);
-        renderEvents();
-        closeAddEventModal();
-      }
-    } catch (e) {
-      alert('Could not save event: ' + e.message);
-    }
+    const newEvent = {
+      id: 'ev_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+      title,
+      time: timeFormatted,
+      tag,
+      color,
+      note
+    };
+
+    eventsData.push(newEvent);
+    saveEventsToLocal();
+    renderEvents();
+    closeAddEventModal();
   }
 
-  async function deleteEventApi(id) {
-    try {
-      const res = await fetch(`/api/events/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        eventsData = eventsData.filter(e => e.id !== id);
-        renderEvents();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  function deleteEventApi(id) {
+    eventsData = eventsData.filter(e => e.id !== id);
+    saveEventsToLocal();
+    renderEvents();
   }
 
-  // 5. REAL LINKS & VAULT API
+  // ================= 5. PRIVATE PER-DEVICE QUICK LINKS & VAULT =================
+  const DEFAULT_INITIAL_LINKS = [
+    { id: 'link-1', title: 'OmniDesk Core Repo', desc: 'Source code & releases', url: 'https://github.com', tag: '★ 142 stars', badge: 'v1.4' },
+    { id: 'link-2', title: 'Assets & Design Vault', desc: 'Cloud drive print assets', url: 'https://drive.google.com', tag: '18.4 GB', badge: 'Shared' },
+    { id: 'link-3', title: 'Workspace & Sprints', desc: 'Notion board & specs', url: 'https://notion.so', tag: 'Sprint 42', badge: 'Updated' },
+    { id: 'link-4', title: 'Figma Design System', desc: 'Components & tokens', url: 'https://figma.com', tag: 'v2.1 Master', badge: 'UI Kit' }
+  ];
+
   let linksData = [];
 
-  async function fetchLinks() {
+  function fetchLinks() {
     try {
-      const res = await fetch('/api/links');
-      if (res.ok) {
-        linksData = await res.json();
-        renderLinks();
+      const saved = localStorage.getItem('asa_personal_links');
+      if (saved) {
+        linksData = JSON.parse(saved);
+      } else {
+        linksData = [...DEFAULT_INITIAL_LINKS];
+        saveLinksToLocal();
       }
-    } catch (err) {
-      console.warn('Links fetch error:', err);
+    } catch (e) {
+      linksData = [...DEFAULT_INITIAL_LINKS];
+    }
+    renderLinks();
+  }
+
+  function saveLinksToLocal() {
+    try {
+      localStorage.setItem('asa_personal_links', JSON.stringify(linksData));
+    } catch (e) {
+      console.warn('Could not save links locally', e);
     }
   }
 
@@ -1378,39 +1405,31 @@
     });
   }
 
-  async function promptNewLink() {
+  function promptNewLink() {
     const title = prompt('Enter bookmark title (e.g., Slack Channel, Miro Board):');
     if (!title) return;
     const url = prompt('Enter URL:', 'https://');
     if (!url) return;
     const desc = prompt('Enter a short description:', 'Custom studio bookmark');
 
-    try {
-      const res = await fetch('/api/links', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, url, desc, tag: 'Saved', badge: 'Active' })
-      });
-      if (res.ok) {
-        const newL = await res.json();
-        linksData.push(newL);
-        renderLinks();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    const newL = {
+      id: 'link_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+      title,
+      url,
+      desc: desc || 'Custom bookmark',
+      tag: 'Saved',
+      badge: 'Active'
+    };
+
+    linksData.push(newL);
+    saveLinksToLocal();
+    renderLinks();
   }
 
-  async function deleteLinkApi(id) {
-    try {
-      const res = await fetch(`/api/links/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        linksData = linksData.filter(l => l.id !== id);
-        renderLinks();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  function deleteLinkApi(id) {
+    linksData = linksData.filter(l => l.id !== id);
+    saveLinksToLocal();
+    renderLinks();
   }
 
   async function exportDailyLog() {
