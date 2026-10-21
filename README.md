@@ -4,7 +4,7 @@
 
 A tactile botanical stationery & coquette desk productivity dashboard built with a Node.js/Express backend, Sharp media conversion engine, and client-side private persistence.
 
-[![Deployed on Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://asa-essentials.onrender.com)
+[![Deployed on Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://asa-essentials-1.onrender.com)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Asa790/asa-essentials)
 
 ---
@@ -12,7 +12,7 @@ A tactile botanical stationery & coquette desk productivity dashboard built with
 ## 🌐 Live Deployment
 
 The application is deployed live and hosted on **Render**:
-* **Live URL:** [https://asa-essentials.onrender.com](https://asa-essentials.onrender.com)
+* **Live URL:** [https://asa-essentials-1.onrender.com](https://asa-essentials-1.onrender.com)
 * **Repository:** [https://github.com/Asa790/asa-essentials](https://github.com/Asa790/asa-essentials)
 
 ---
