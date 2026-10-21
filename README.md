@@ -12,7 +12,7 @@ A tactile botanical stationery & coquette desk productivity dashboard built with
 ## 🌐 Live Deployment
 
 The application is deployed live and hosted on **Render**:
-* **Live URL:** [https://asa-essentials.onrender.com](https://asa-essentials.onrender.com) *(or your custom Render URL)*
+* **Live URL:** [https://asa-essentials.onrender.com](https://asa-essentials.onrender.com)
 * **Repository:** [https://github.com/Asa790/asa-essentials](https://github.com/Asa790/asa-essentials)
 
 ---
