@@ -84,11 +84,12 @@
 
   <div class="relative w-full aspect-[697/358] drop-shadow-md select-none">
     
-    <input type="file" id="photostrip-input-1" accept="image/*" class="hidden" onchange="handlePhotostripUpload(1, event)">
-    <input type="file" id="photostrip-input-2" accept="image/*" class="hidden" onchange="handlePhotostripUpload(2, event)">
-    <input type="file" id="photostrip-input-3" accept="image/*" class="hidden" onchange="handlePhotostripUpload(3, event)">
-    <input type="file" id="photostrip-input-4" accept="image/*" class="hidden" onchange="handlePhotostripUpload(4, event)">
+    <input type="file" id="photostrip-input-1" accept="image" class="hidden" onchange="handlePhotostripUpload(1, event)">
+    <input type="file" id="photostrip-input-2" accept="image" class="hidden" onchange="handlePhotostripUpload(2, event)">
+    <input type="file" id="photostrip-input-3" accept="image" class="hidden" onchange="handlePhotostripUpload(3, event)">
+    <input type="file" id="photostrip-input-4" accept="image" class="hidden" onchange="handlePhotostripUpload(4, event)">
 
+    
     <div id="photo-slot-1" onclick="triggerPhotostripInput(1)" class="group absolute cursor-pointer bg-surface-container-high/40 overflow-hidden flex items-center justify-center transition-all z-10" style="left: 2.51%; top: 22.21%; width: 21.52%; height: 48.60%;" title="Click to upload Photo 1">
       <div id="photo-preview-1" class="w-full h-full flex items-center justify-center">
         <span class="material-symbols-outlined text-[16px] text-on-surface-variant/60 group-hover:text-primary transition-colors">add_photo_alternate</span>
@@ -523,10 +524,10 @@
   <div class="w-full flex items-center justify-center pt-2 pb-1">
     <div class="relative w-full max-w-xl aspect-[697/358] drop-shadow-md select-none">
       
-      <input type="file" id="photostrip-ts-1" accept="image/*" class="hidden" onchange="handlePhotostripUpload(1, event)">
-      <input type="file" id="photostrip-ts-2" accept="image/*" class="hidden" onchange="handlePhotostripUpload(2, event)">
-      <input type="file" id="photostrip-ts-3" accept="image/*" class="hidden" onchange="handlePhotostripUpload(3, event)">
-      <input type="file" id="photostrip-ts-4" accept="image/*" class="hidden" onchange="handlePhotostripUpload(4, event)">
+      <input type="file" id="photostrip-ts-1" accept="image" class="hidden" onchange="handlePhotostripUpload(1, event)">
+      <input type="file" id="photostrip-ts-2" accept="image" class="hidden" onchange="handlePhotostripUpload(2, event)">
+      <input type="file" id="photostrip-ts-3" accept="image" class="hidden" onchange="handlePhotostripUpload(3, event)">
+      <input type="file" id="photostrip-ts-4" accept="image" class="hidden" onchange="handlePhotostripUpload(4, event)">
 
       <div onclick="document.getElementById('photostrip-ts-1')?.click()" class="group absolute cursor-pointer bg-surface-container-high/40 overflow-hidden flex items-center justify-center transition-all z-10" style="left: 2.51%; top: 22.21%; width: 21.52%; height: 48.60%;" title="Click to upload Photo 1">
         <div id="photo-preview-ts-1" class="w-full h-full flex items-center justify-center">
