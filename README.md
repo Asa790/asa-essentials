@@ -1,40 +1,60 @@
 # 🌸 Asa's Essentials Dashboard
 
-A botanical stationery & coquette desk productivity dashboard built with a Node.js/Express backend, Sharp image processing, and full interactive persistence.
+> *"This is all for you <3"*
+
+A tactile botanical stationery & coquette desk productivity dashboard built with a Node.js/Express backend, Sharp media conversion engine, and client-side private persistence.
+
+[![Deployed on Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://asa-essentials.onrender.com)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Asa790/asa-essentials)
+
+---
+
+## 🌐 Live Deployment
+
+The application is deployed live and hosted on **Render**:
+* **Live URL:** [https://asa-essentials.onrender.com](https://asa-essentials.onrender.com) *(or your custom Render URL)*
+* **Repository:** [https://github.com/Asa790/asa-essentials](https://github.com/Asa790/asa-essentials)
+
+---
 
 ## ✨ Features
 
-- **Real Image Converter Engine**:
-  - Powered by `sharp` and `multer`.
-  - Supports converting to **WEBP**, **PNG**, **JPG**, **AVIF**, and **TIFF**.
-  - Drag-and-drop or file picker upload.
-  - Live file size and compression percentage metrics with one-click download & link copy.
-- **Persistent To-Do List**:
-  - Add tasks with priority tags.
-  - Complete, undo, and delete tasks.
-  - Filter by All, Active, and Done with live progress bar and task counters.
-  - Backed by persistent JSON storage (`data/db.json`).
-- **Schedule & Timeline**:
-  - Dynamic daily agenda with real-time hour indicators.
-  - Add and delete scheduled events.
-- **Quick Links & Desk Vault**:
-  - Add custom bookmarks with title, url, tags, and status.
-  - Delete or navigate to saved studio links.
-- **Live Clock & Date Sync**:
-  - Real-time digital clock in header synced with your system time.
+- **Private Per-Device Storage (`localStorage`)**:
+  - Each visitor has their own completely private To-Do list, Daily Calendar events, and Vault Bookmarks without interfering with other users.
+- **Interactive Ribbon Filmstrip Photobooth**:
+  - 4-slot aesthetic vintage photostrip with client-side photo upload and memory storage.
+- **Real Image & Document Converter Engine**:
+  - Powered by `sharp`, `multer`, and `pdf2docx`.
+  - Batch conversion to **WEBP**, **PNG**, **JPG**, **AVIF**, and **TIFF**.
+  - Live compression savings calculation, one-click download, and shareable link generation.
+- **Customizable Focus Moods**:
+  - Choose between *Vintage Rosewood*, *Botanical Matcha*, *Dusty Rose Romance*, *Midnight Lavender*, *Autumn Terracotta*, or create your own custom mood.
+- **Multi-View Studio Pages**:
+  - Dedicated pages for **Dashboard**, **File Tools**, **Tasks & Schedule**, and **Vault & Links**.
+- **Mobile-Responsive Design**:
+  - Slide-out mobile drawer navigation, responsive header, and adaptive card layouts.
 
-## 🚀 Running the Project
+---
 
-1. Install dependencies:
+## 🚀 Running Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Asa790/asa-essentials.git
+   cd asa-essentials
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the live server:
+3. Start the server:
    ```bash
    npm start
    ```
 
-3. Open your browser at:
-   [http://localhost:3000](http://localhost:3000)
-
+4. Open your browser:
+   ```text
+   http://localhost:3000
+   ```
