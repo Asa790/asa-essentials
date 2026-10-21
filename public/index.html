@@ -79,10 +79,10 @@
 
   <div class="relative w-full aspect-[697/358] drop-shadow-md select-none">
     
-    <input type="file" id="photostrip-input-1" accept="image" class="hidden" onchange="handlePhotostripUpload(1, event)">
-    <input type="file" id="photostrip-input-2" accept="image" class="hidden" onchange="handlePhotostripUpload(2, event)">
-    <input type="file" id="photostrip-input-3" accept="image" class="hidden" onchange="handlePhotostripUpload(3, event)">
-    <input type="file" id="photostrip-input-4" accept="image" class="hidden" onchange="handlePhotostripUpload(4, event)">
+    <input type="file" id="photostrip-input-1" accept="image/*" class="hidden" onchange="handlePhotostripUpload(1, event)">
+    <input type="file" id="photostrip-input-2" accept="image/*" class="hidden" onchange="handlePhotostripUpload(2, event)">
+    <input type="file" id="photostrip-input-3" accept="image/*" class="hidden" onchange="handlePhotostripUpload(3, event)">
+    <input type="file" id="photostrip-input-4" accept="image/*" class="hidden" onchange="handlePhotostripUpload(4, event)">
 
     
     <div id="photo-slot-1" onclick="triggerPhotostripInput(1)" class="group absolute cursor-pointer bg-surface-container-high/40 overflow-hidden flex items-center justify-center transition-all z-10" style="left: 2.51%; top: 22.21%; width: 21.52%; height: 48.60%;" title="Click to upload Photo 1">
@@ -237,7 +237,6 @@
     </div>
   </div>
 </div>
-</div>
 
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start" id="view-dashboard">
 
@@ -310,7 +309,6 @@
 </div>
 <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
 <div class="h-full bg-primary rounded-full transition-all duration-300" id="progress-bar-fill" style="width: 20%;"></div>
-</div>
 </div>
 </div>
 </section>
@@ -519,10 +517,10 @@
   <div class="w-full flex items-center justify-center pt-2 pb-1">
     <div class="relative w-full max-w-xl aspect-[697/358] drop-shadow-md select-none">
       
-      <input type="file" id="photostrip-ts-1" accept="image" class="hidden" onchange="handlePhotostripUpload(1, event)">
-      <input type="file" id="photostrip-ts-2" accept="image" class="hidden" onchange="handlePhotostripUpload(2, event)">
-      <input type="file" id="photostrip-ts-3" accept="image" class="hidden" onchange="handlePhotostripUpload(3, event)">
-      <input type="file" id="photostrip-ts-4" accept="image" class="hidden" onchange="handlePhotostripUpload(4, event)">
+      <input type="file" id="photostrip-ts-1" accept="image/*" class="hidden" onchange="handlePhotostripUpload(1, event)">
+      <input type="file" id="photostrip-ts-2" accept="image/*" class="hidden" onchange="handlePhotostripUpload(2, event)">
+      <input type="file" id="photostrip-ts-3" accept="image/*" class="hidden" onchange="handlePhotostripUpload(3, event)">
+      <input type="file" id="photostrip-ts-4" accept="image/*" class="hidden" onchange="handlePhotostripUpload(4, event)">
 
       <div onclick="document.getElementById('photostrip-ts-1')?.click()" class="group absolute cursor-pointer bg-surface-container-high/40 overflow-hidden flex items-center justify-center transition-all z-10" style="left: 2.51%; top: 22.21%; width: 21.52%; height: 48.60%;" title="Click to upload Photo 1">
         <div id="photo-preview-ts-1" class="w-full h-full flex items-center justify-center">
@@ -835,26 +833,19 @@
     });
 
     if (pageId === 'dashboard') {
-      // Put all columns back into dashboard
-      if (col1) viewDashboard.appendChild(col1);
-      if (col2) viewDashboard.appendChild(col2);
-      if (col3) viewDashboard.appendChild(col3);
+      const quoteArt = document.getElementById('section-quote-art');
+      [col1, col2, col3].forEach(col => {
+        if (col) viewDashboard.insertBefore(col, quoteArt || null);
+      });
 
-      // Restore vault below grid in dashboard
-      const mainWrapper = document.querySelector('main > div');
-      const reminderBanner = document.querySelector('.mt-space-md.border-dashed');
-      if (vaultSection && mainWrapper) {
-        if (reminderBanner) {
-          mainWrapper.insertBefore(vaultSection, reminderBanner);
-        } else {
-          mainWrapper.appendChild(vaultSection);
-        }
+      if (vaultSection) {
+        viewDashboard.insertAdjacentElement('afterend', vaultSection);
         vaultSection.classList.remove('hidden');
       }
 
       viewDashboard.classList.remove('hidden');
       viewDashboard.classList.add('grid');
-    } 
+    }
     else if (pageId === 'file-tools') {
       if (vaultSection) vaultSection.classList.add('hidden');
       if (col2 && fileToolsHost) {
