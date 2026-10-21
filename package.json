@@ -2,7 +2,7 @@
   "name": "stitch_asa_s_essentials_dashboard",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"
